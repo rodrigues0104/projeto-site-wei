@@ -1,119 +1,320 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. Captura TODOS os botões que têm a classe 'btn-whatsapp-rotativo'
-    const botoesWhatsapp = document.querySelectorAll('.btn-whatsapp-rotativo');
-
-    // 2. Os números da sua equipe de vendas (DDI 55 + DDD + Número)
     const vendedores = [
-        "5511999596666", 
-        "5511959668888", 
-        "5511998636666"  
+        "5511999596666",
+        "5511959668888",
+        "5511998636666"
     ];
 
-    // 3. A mensagem padrão de contato
-    const mensagem = "Olá! Gostaria de receber o catálogo de produtos e entender as condições de fornecimento em atacado.";
+    const produtosCatalogo = Array.isArray(window.produtosCatalogo)
+        ? window.produtosCatalogo
+        : [];
+    const CHAVE_COTACAO = 'weiProdutosCotacao';
 
-    // 4. Aplica a função de clique para cada botão encontrado na página
-    botoesWhatsapp.forEach(function(botao) {
-        botao.addEventListener('click', function(event) {
-            event.preventDefault(); // Evita que a tela pule
+    function normalizarTexto(texto) {
+        return String(texto || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim();
+    }
 
-            // Sorteia um número
-            const numeroSorteado = vendedores[Math.floor(Math.random() * vendedores.length)];
-            
-            // Monta o link
-            const url = `https://wa.me/${numeroSorteado}?text=${encodeURIComponent(mensagem)}`;
-            
-            // Abre o WhatsApp
-            window.open(url, '_blank');
+    function carregarCotacao() {
+        try {
+            const produtos = JSON.parse(localStorage.getItem(CHAVE_COTACAO)) || [];
+            return Array.isArray(produtos) ? produtos : [];
+        } catch (erro) {
+            return [];
+        }
+    }
+
+    function salvarCotacao(produtos) {
+        localStorage.setItem(CHAVE_COTACAO, JSON.stringify(produtos));
+    }
+
+    function produtoEstaNaCotacao(sku) {
+        return carregarCotacao().some(produto => produto.sku === sku);
+    }
+
+    function atualizarContadorCotacao() {
+        const quantidade = carregarCotacao().length;
+
+        document.querySelectorAll('.cart-action').forEach(carrinho => {
+            let contador = carrinho.querySelector('.cart-count');
+
+            if (!contador) {
+                contador = document.createElement('span');
+                contador.className = 'cart-count';
+                carrinho.appendChild(contador);
+            }
+
+            contador.textContent = quantidade;
+            contador.hidden = quantidade === 0;
         });
-    });
-});
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // --- LÓGICA DO SLIDER DE IMAGENS ---
-    const slides = document.querySelectorAll('.slide');
-    let slideAtual = 0;
 
-    // Só executa se encontrar imagens na página
-    if (slides.length > 0) {
+        document.querySelectorAll('.actions .action').forEach(acao => {
+            const titulo = acao.querySelector('strong');
+            const subtitulo = acao.querySelector('span');
+
+            if (!titulo || !subtitulo || !titulo.textContent.toLowerCase().includes('cota')) {
+                return;
+            }
+
+            subtitulo.textContent = quantidade === 0
+                ? 'Minhas compras'
+                : `${quantidade} produto${quantidade > 1 ? 's' : ''}`;
+        });
+    }
+
+    function atualizarBotoesCotacao() {
+        document.querySelectorAll('.btn-cotar-produto').forEach(botao => {
+            const selecionado = produtoEstaNaCotacao(botao.dataset.sku);
+
+            botao.classList.toggle('is-selected', selecionado);
+            botao.disabled = selecionado;
+            botao.setAttribute('aria-pressed', selecionado ? 'true' : 'false');
+            botao.textContent = selecionado ? 'Produto cotado' : 'Cotar produto';
+        });
+    }
+
+    function adicionarProdutoNaCotacao(sku) {
+        const produtoSelecionado = produtosCatalogo.find(produto => produto.sku === sku);
+
+        if (!produtoSelecionado || produtoEstaNaCotacao(produtoSelecionado.sku)) {
+            return;
+        }
+
+        const cotacao = carregarCotacao();
+        cotacao.push({
+            sku: produtoSelecionado.sku,
+            nome: produtoSelecionado.nome,
+            caixa: produtoSelecionado.caixa,
+            categoria: produtoSelecionado.categoria,
+            imagem: produtoSelecionado.imagem
+        });
+
+        salvarCotacao(cotacao);
+        atualizarContadorCotacao();
+        atualizarBotoesCotacao();
+    }
+
+    function removerProdutoDaCotacao(sku) {
+        const cotacaoAtualizada = carregarCotacao()
+            .filter(produto => produto.sku !== sku);
+
+        salvarCotacao(cotacaoAtualizada);
+        atualizarContadorCotacao();
+        atualizarBotoesCotacao();
+        renderizarCotacao();
+    }
+
+    function montarImagemProduto(produto) {
+        if (produto.imagem) {
+            return `<img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">`;
+        }
+
+        return '<div class="product-image-placeholder" aria-hidden="true"></div>';
+    }
+
+    function montarCardProduto(produto) {
+        const produtoSelecionado = produtoEstaNaCotacao(produto.sku);
+
+        return `
+            <div class="product-card">
+                <div class="product-image">
+                    ${montarImagemProduto(produto)}
+                </div>
+                <div class="product-info">
+                    <span class="product-sku">Cód: ${produto.sku}</span>
+                    <h3 class="product-title">${produto.nome}</h3>
+                    <p class="product-box">${produto.caixa}</p>
+                    <button type="button" class="btn-cotar-produto${produtoSelecionado ? ' is-selected' : ''}" data-sku="${produto.sku}" aria-pressed="${produtoSelecionado ? 'true' : 'false'}" ${produtoSelecionado ? 'disabled' : ''}>${produtoSelecionado ? 'Produto cotado' : 'Cotar produto'}</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function filtrarProdutos(produtos, termoBusca) {
+        const termoNormalizado = normalizarTexto(termoBusca);
+
+        if (!termoNormalizado) {
+            return produtos;
+        }
+
+        return produtos.filter(produto => {
+            const textoProduto = normalizarTexto(`${produto.sku} ${produto.nome} ${produto.caixa}`);
+            return textoProduto.includes(termoNormalizado);
+        });
+    }
+
+    function renderizarVitrine(vitrine, produtos, termoBusca) {
+        const produtosFiltrados = filtrarProdutos(produtos, termoBusca);
+
+        if (produtosFiltrados.length === 0) {
+            vitrine.innerHTML = '<p class="empty-state">Nenhum produto encontrado nesta categoria.</p>';
+            return;
+        }
+
+        vitrine.innerHTML = produtosFiltrados.map(montarCardProduto).join('');
+    }
+
+    function configurarVitrine() {
+        const vitrine = document.getElementById('vitrine-produtos');
+
+        if (!vitrine) {
+            return;
+        }
+
+        const categoriaAtual = vitrine.dataset.categoria || '';
+        const produtosDaCategoria = categoriaAtual
+            ? produtosCatalogo.filter(produto => produto.categoria === categoriaAtual)
+            : produtosCatalogo;
+        const campoBusca = document.querySelector('.search-box input');
+
+        renderizarVitrine(vitrine, produtosDaCategoria, campoBusca ? campoBusca.value : '');
+
+        if (campoBusca) {
+            campoBusca.addEventListener('input', function() {
+                renderizarVitrine(vitrine, produtosDaCategoria, campoBusca.value);
+            });
+        }
+
+        vitrine.addEventListener('click', function(event) {
+            const botao = event.target.closest('.btn-cotar-produto');
+
+            if (!botao) {
+                return;
+            }
+
+            adicionarProdutoNaCotacao(botao.dataset.sku);
+        });
+    }
+
+    function montarItemCotacao(produto) {
+        return `
+            <article class="quote-item">
+                <div class="quote-item-image">
+                    ${montarImagemProduto(produto)}
+                </div>
+                <div class="quote-item-info">
+                    <span class="product-sku">Cód: ${produto.sku}</span>
+                    <h3>${produto.nome}</h3>
+                    <p>${produto.caixa}</p>
+                </div>
+                <button type="button" class="btn-remover-cotacao" data-sku="${produto.sku}">Remover</button>
+            </article>
+        `;
+    }
+
+    function renderizarCotacao() {
+        const listaCotacao = document.getElementById('lista-cotacao');
+        const botaoEnviar = document.getElementById('btn-enviar-whatsapp');
+
+        if (!listaCotacao) {
+            return;
+        }
+
+        const cotacao = carregarCotacao();
+
+        if (cotacao.length === 0) {
+            listaCotacao.innerHTML = '<p class="empty-state">Sua cotação ainda está vazia. Selecione produtos no catálogo para continuar.</p>';
+            if (botaoEnviar) {
+                botaoEnviar.disabled = true;
+            }
+            return;
+        }
+
+        listaCotacao.innerHTML = cotacao.map(montarItemCotacao).join('');
+
+        if (botaoEnviar) {
+            botaoEnviar.disabled = false;
+        }
+    }
+
+    function montarMensagemCotacao() {
+        const cotacao = carregarCotacao();
+        const linhasProdutos = cotacao.map(produto => {
+            return [
+                `Cód: ${produto.sku}`,
+                `Produto: ${produto.nome}`,
+                `Caixa: ${produto.caixa}`
+            ].join('\n');
+        }).join('\n\n');
+
+        return `Olá! Gostaria de fazer uma cotação dos produtos abaixo:\n\n${linhasProdutos}`;
+    }
+
+    function abrirWhatsappComMensagem(mensagem) {
+        const numeroSorteado = vendedores[Math.floor(Math.random() * vendedores.length)];
+        const url = `https://wa.me/${numeroSorteado}?text=${encodeURIComponent(mensagem)}`;
+
+        window.open(url, '_blank');
+    }
+
+    function configurarCotacao() {
+        const listaCotacao = document.getElementById('lista-cotacao');
+        const botaoEnviar = document.getElementById('btn-enviar-whatsapp');
+
+        if (!listaCotacao) {
+            return;
+        }
+
+        renderizarCotacao();
+
+        listaCotacao.addEventListener('click', function(event) {
+            const botao = event.target.closest('.btn-remover-cotacao');
+
+            if (!botao) {
+                return;
+            }
+
+            removerProdutoDaCotacao(botao.dataset.sku);
+        });
+
+        if (botaoEnviar) {
+            botaoEnviar.addEventListener('click', function() {
+                const cotacao = carregarCotacao();
+
+                if (cotacao.length === 0) {
+                    return;
+                }
+
+                abrirWhatsappComMensagem(montarMensagemCotacao());
+            });
+        }
+    }
+
+    function configurarWhatsappRotativo() {
+        const botoesWhatsapp = document.querySelectorAll('.btn-whatsapp-rotativo');
+        const mensagem = "Olá! Gostaria de receber o catálogo de produtos e entender as condições de fornecimento em atacado.";
+
+        botoesWhatsapp.forEach(function(botao) {
+            botao.addEventListener('click', function(event) {
+                event.preventDefault();
+                abrirWhatsappComMensagem(mensagem);
+            });
+        });
+    }
+
+    function configurarSlider() {
+        const slides = document.querySelectorAll('.slide');
+        let slideAtual = 0;
+
+        if (slides.length === 0) {
+            return;
+        }
+
         function passarSlide() {
             slides[slideAtual].classList.remove('active');
             slideAtual = (slideAtual + 1) % slides.length;
             slides[slideAtual].classList.add('active');
         }
 
-        // Troca de imagem a cada 4 segundos (4000 milissegundos)
         setInterval(passarSlide, 4000);
     }
-    //
-// 1. BANCO DE DADOS EM JSON (Sua lista de produtos)
 
-const produtosDeAudio = [
-    {
-        "sku": "WEI-1001",
-        "nome": "Caixa de Som Bluetooth Portátil 50W Pro",
-        "preco": "145,00",
-        "imagem": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=400&auto=format&fit=crop",
-        "link": "detalhes-produto.html"
-    },
-    {
-        "sku": "WEI-1002",
-        "nome": "Fone de Ouvido Headphone Noise Cancelling",
-        "preco": "89,90",
-        "imagem": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=400&auto=format&fit=crop",
-        "link": "detalhes-produto.html"
-    },
-    {
-        "sku": "WEI-1003",
-        "nome": "Microfone Condensador Profissional USB Studio",
-        "preco": "210,00",
-        "imagem": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=400&auto=format&fit=crop",
-        "link": "detalhes-produto.html"
-    },
-    {
-        "sku": "WEI-1004",
-        "nome": "Fone Intra-auricular TWS Esportivo",
-        "preco": "45,50",
-        "imagem": "",
-        "link": "detalhes-produto.html"
-    }
-];
-
-// 2. MOTOR DE RENDERIZAÇÃO
-// Localiza a div onde os produtos vão entrar
-const vitrine = document.getElementById('vitrine-produtos');
-
-// Verifica se a página atual tem uma vitrine (evita erros em outras páginas)
-if (vitrine) {
-    
-    // Limpa a vitrine por segurança
-    vitrine.innerHTML = '';
-
-    // Loop que passa por todos os produtos do JSON
-    produtosDeAudio.forEach(produto => {
-        
-        // Cria a estrutura do cartão injetando as variáveis do JSON (${...})
-        const cartaoHTML = `
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${produto.imagem}" alt="${produto.nome}">
-                </div>
-                <div class="product-info">
-                    <span class="product-sku">Ref: ${produto.sku}</span>
-                    <h3 class="product-title">${produto.nome}</h3>
-                    
-                    <div class="product-bottom">
-                        <span class="product-price">R$ ${produto.preco} <span>/unid. no atacado</span></span>
-                        <a href="${produto.link}" class="btn-detalhes">Ver Detalhes</a>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Joga o cartão pronto dentro do HTML da vitrine
-        vitrine.innerHTML += cartaoHTML;
-    }
-);
-}
+    configurarWhatsappRotativo();
+    configurarSlider();
+    configurarVitrine();
+    configurarCotacao();
+    atualizarContadorCotacao();
 });
