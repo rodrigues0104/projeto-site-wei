@@ -212,6 +212,20 @@ body {
     color: #ffffff;
 }
 
+.menu ul .menu-header a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #D4AF37;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu ul .menu-header a:hover {
+    color: #ffffff;
+}
+
 .menu ul li a::after {
     content: '';
     position: absolute;
