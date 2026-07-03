@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const vendedores = [
         "5511999596666",
-        "5511959668888",
         "5511998636666"
     ];
 
