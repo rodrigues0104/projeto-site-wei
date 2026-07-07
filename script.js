@@ -357,6 +357,47 @@ document.addEventListener("DOMContentLoaded", function() {
         setInterval(passarSlide, 4000);
     }
 
+    function configurarMenuMobile() {
+        const menu = document.querySelector('.menu');
+        const listaMenu = menu ? menu.querySelector('ul') : null;
+
+        if (!menu || !listaMenu || menu.querySelector('.mobile-menu-toggle')) {
+            return;
+        }
+
+        if (!listaMenu.id) {
+            listaMenu.id = 'menu-categorias';
+        }
+
+        const botaoMenu = document.createElement('button');
+        botaoMenu.type = 'button';
+        botaoMenu.className = 'mobile-menu-toggle';
+        botaoMenu.setAttribute('aria-expanded', 'false');
+        botaoMenu.setAttribute('aria-controls', listaMenu.id);
+        botaoMenu.innerHTML = `
+            <span><i class="fa-solid fa-bars"></i> Categorias</span>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        `;
+
+        menu.classList.add('has-mobile-menu');
+        menu.querySelector('.container').insertBefore(botaoMenu, listaMenu);
+
+        botaoMenu.addEventListener('click', function() {
+            const menuAberto = menu.classList.toggle('menu-open');
+            botaoMenu.setAttribute('aria-expanded', menuAberto ? 'true' : 'false');
+        });
+
+        listaMenu.addEventListener('click', function(event) {
+            if (!event.target.closest('a')) {
+                return;
+            }
+
+            menu.classList.remove('menu-open');
+            botaoMenu.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    configurarMenuMobile();
     configurarWhatsappRotativo();
     configurarSlider();
     configurarBuscaGlobal();
