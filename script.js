@@ -4,10 +4,50 @@ document.addEventListener("DOMContentLoaded", function() {
         "5511998636666"
     ];
 
-    const produtosCatalogo = Array.isArray(window.produtosCatalogo)
+    const categoriasMenu = [
+        { nome: 'TODAS CATEGORIAS', href: 'catalogo.html', icone: 'fa-solid fa-bars', destaque: true },
+        { nome: 'Áudio', href: 'audio.html', categoria: 'audio' },
+        { nome: 'Automotivo', href: 'automotivo.html', categoria: 'automotivo' },
+        { nome: 'Bebê & Infantil', href: 'bebe-infantil.html', categoria: 'bebe-infantil' },
+        { nome: 'Beleza & Cuidados', href: 'beleza.html', categoria: 'beleza' },
+        { nome: 'Camping & Aventura', href: 'camping.html', categoria: 'camping' },
+        { nome: 'Cozinha', href: 'cozinha.html', categoria: 'cozinha' },
+        { nome: 'Eletrônicos', href: 'eletronicos.html', categoria: 'eletronicos' },
+        { nome: 'Intimidade & Bem estar', href: 'intimidade.html', categoria: 'intimidade' }
+    ];
+
+    const produtosCatalogoOriginais = Array.isArray(window.produtosCatalogo)
         ? window.produtosCatalogo
         : [];
+    const produtosCatalogo = prepararProdutosCatalogo(produtosCatalogoOriginais);
     const CHAVE_COTACAO = 'weiProdutosCotacao';
+
+    function prepararProdutosCatalogo(produtos) {
+        const produtosUnicos = [];
+        const chavesVistas = new Set();
+
+        produtos.forEach((produto, indice) => {
+            const chaveProduto = [
+                produto.sku,
+                produto.nome,
+                produto.categoria,
+                produto.caixa,
+                produto.imagem || ''
+            ].join('|');
+
+            if (chavesVistas.has(chaveProduto)) {
+                return;
+            }
+
+            chavesVistas.add(chaveProduto);
+            produtosUnicos.push({
+                ...produto,
+                idCotacao: `${produto.sku || 'produto'}-${indice}`
+            });
+        });
+
+        return produtosUnicos;
+    }
 
     function normalizarTexto(texto) {
         return String(texto || '')
@@ -15,6 +55,11 @@ document.addEventListener("DOMContentLoaded", function() {
             .replace(/[\u0300-\u036f]/g, '')
             .toLowerCase()
             .trim();
+    }
+
+    function obterNomeCategoria(categoria) {
+        const categoriaEncontrada = categoriasMenu.find(item => item.categoria === categoria);
+        return categoriaEncontrada ? categoriaEncontrada.nome : categoria;
     }
 
     function obterTermoBuscaDaUrl() {
@@ -50,8 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem(CHAVE_COTACAO, JSON.stringify(produtos));
     }
 
-    function produtoEstaNaCotacao(sku) {
-        return carregarCotacao().some(produto => produto.sku === sku);
+    function produtoEstaNaCotacao(produtoId) {
+        return carregarCotacao().some(produto => (produto.idCotacao || produto.sku) === produtoId);
     }
 
     function atualizarContadorCotacao() {
@@ -86,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function atualizarBotoesCotacao() {
         document.querySelectorAll('.btn-cotar-produto').forEach(botao => {
-            const selecionado = produtoEstaNaCotacao(botao.dataset.sku);
+            const selecionado = produtoEstaNaCotacao(botao.dataset.produtoId);
 
             botao.classList.toggle('is-selected', selecionado);
             botao.disabled = selecionado;
@@ -95,15 +140,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function adicionarProdutoNaCotacao(sku) {
-        const produtoSelecionado = produtosCatalogo.find(produto => produto.sku === sku);
+    function adicionarProdutoNaCotacao(produtoId) {
+        const produtoSelecionado = produtosCatalogo.find(produto => produto.idCotacao === produtoId);
 
-        if (!produtoSelecionado || produtoEstaNaCotacao(produtoSelecionado.sku)) {
+        if (!produtoSelecionado || produtoEstaNaCotacao(produtoSelecionado.idCotacao)) {
             return;
         }
 
         const cotacao = carregarCotacao();
         cotacao.push({
+            idCotacao: produtoSelecionado.idCotacao,
             sku: produtoSelecionado.sku,
             nome: produtoSelecionado.nome,
             caixa: produtoSelecionado.caixa,
@@ -116,9 +162,9 @@ document.addEventListener("DOMContentLoaded", function() {
         atualizarBotoesCotacao();
     }
 
-    function removerProdutoDaCotacao(sku) {
+    function removerProdutoDaCotacao(produtoId) {
         const cotacaoAtualizada = carregarCotacao()
-            .filter(produto => produto.sku !== sku);
+            .filter(produto => (produto.idCotacao || produto.sku) !== produtoId);
 
         salvarCotacao(cotacaoAtualizada);
         atualizarContadorCotacao();
@@ -135,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function montarCardProduto(produto) {
-        const produtoSelecionado = produtoEstaNaCotacao(produto.sku);
+        const produtoSelecionado = produtoEstaNaCotacao(produto.idCotacao);
 
         return `
             <div class="product-card">
@@ -145,8 +191,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="product-info">
                     <span class="product-sku">Cód: ${produto.sku}</span>
                     <h3 class="product-title">${produto.nome}</h3>
+                    <p class="product-category">Categoria: ${obterNomeCategoria(produto.categoria)}</p>
                     <p class="product-box">${produto.caixa}</p>
-                    <button type="button" class="btn-cotar-produto${produtoSelecionado ? ' is-selected' : ''}" data-sku="${produto.sku}" aria-pressed="${produtoSelecionado ? 'true' : 'false'}" ${produtoSelecionado ? 'disabled' : ''}>${produtoSelecionado ? 'Produto cotado' : 'Cotar produto'}</button>
+                    <button type="button" class="btn-cotar-produto${produtoSelecionado ? ' is-selected' : ''}" data-produto-id="${produto.idCotacao}" aria-pressed="${produtoSelecionado ? 'true' : 'false'}" ${produtoSelecionado ? 'disabled' : ''}>${produtoSelecionado ? 'Produto cotado' : 'Cotar produto'}</button>
                 </div>
             </div>
         `;
@@ -230,11 +277,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            adicionarProdutoNaCotacao(botao.dataset.sku);
+            adicionarProdutoNaCotacao(botao.dataset.produtoId);
         });
     }
 
     function montarItemCotacao(produto) {
+        const produtoId = produto.idCotacao || produto.sku;
+
         return `
             <article class="quote-item">
                 <div class="quote-item-image">
@@ -243,9 +292,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="quote-item-info">
                     <span class="product-sku">Cód: ${produto.sku}</span>
                     <h3>${produto.nome}</h3>
+                    <p>Categoria: ${obterNomeCategoria(produto.categoria)}</p>
                     <p>${produto.caixa}</p>
                 </div>
-                <button type="button" class="btn-remover-cotacao" data-sku="${produto.sku}">Remover</button>
+                <button type="button" class="btn-remover-cotacao" data-produto-id="${produtoId}">Remover</button>
             </article>
         `;
     }
@@ -281,6 +331,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return [
                 `Cód: ${produto.sku}`,
                 `Produto: ${produto.nome}`,
+                `Categoria: ${obterNomeCategoria(produto.categoria)}`,
                 `Caixa: ${produto.caixa}`
             ].join('\n');
         }).join('\n\n');
@@ -312,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            removerProdutoDaCotacao(botao.dataset.sku);
+            removerProdutoDaCotacao(botao.dataset.produtoId);
         });
 
         if (botaoEnviar) {
@@ -357,6 +408,26 @@ document.addEventListener("DOMContentLoaded", function() {
         setInterval(passarSlide, 4000);
     }
 
+    function montarItemMenu(categoria) {
+        const classeItem = categoria.destaque ? ' class="menu-header"' : '';
+        const icone = categoria.icone ? `<i class="${categoria.icone}"></i>` : '';
+
+        return `
+            <li${classeItem}>
+                <a href="${categoria.href}">
+                    ${icone}
+                    <span>${categoria.nome}</span>
+                </a>
+            </li>
+        `;
+    }
+
+    function configurarMenuCategorias() {
+        document.querySelectorAll('.menu ul').forEach(listaMenu => {
+            listaMenu.innerHTML = categoriasMenu.map(montarItemMenu).join('');
+        });
+    }
+
     function configurarMenuMobile() {
         const menu = document.querySelector('.menu');
         const listaMenu = menu ? menu.querySelector('ul') : null;
@@ -397,6 +468,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    configurarMenuCategorias();
     configurarMenuMobile();
     configurarWhatsappRotativo();
     configurarSlider();

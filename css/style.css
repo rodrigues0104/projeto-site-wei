@@ -335,6 +335,13 @@ body {
     margin: 0;
 }
 
+.product-category {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+}
+
 .product-box {
     color: #475569;
     font-size: 14px;
@@ -562,7 +569,7 @@ body {
     /* Remova o "overflow: hidden;" daqui se ele estiver no código! */
 }
 
-.slide {
+.slide-legacy {
     position: absolute;
     top: 0;
     left: 0;
@@ -574,13 +581,13 @@ body {
     transition: opacity 1.5s ease-in-out; /* Controla a suavidade na hora de trocar de foto */
 }
 
-.slide.active {
+.slide-legacy.active {
     opacity: 1; /* Revela a imagem que está ativa no momento */
 }
 
 /* --- PELÍCULA AZUL --- */
 
-.overlay {
+.overlay-legacy {
     position: absolute;
     top: 0;
     left: 0;
