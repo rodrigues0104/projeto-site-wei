@@ -3,86 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Cotação - Wei Import</title>
+    <meta name="description" content="Revise os produtos selecionados e envie sua cotação para a equipe Wei Import.">
+    <title>Minha Cotação | Wei Import</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="imagens/1.png" type="image/x-icon">
 </head>
-<body>
-
+<body class="quote-page-view">
     <header class="top-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="index.html"><img src="imagens/2.png" alt="Logo Importadora"></a>
+                    <a href="index.html" aria-label="Página inicial da Wei Import">
+                        <img src="imagens/2.png" alt="Wei Import">
+                    </a>
                 </div>
 
                 <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Pesquisar produtos...">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="search" placeholder="Busque por produto ou código" aria-label="Pesquisar produtos">
                 </div>
 
                 <div class="actions">
                     <a href="#" class="action btn-whatsapp-rotativo">
-                        <i class="fa-regular fa-circle-question"></i>
-                        <div>
-                            <strong>Atendimento</strong>
-                            <span>Fale conosco</span>
-                        </div>
+                        <i class="fa-regular fa-comments" aria-hidden="true"></i>
+                        <div><strong>Atendimento</strong><span>Fale com a equipe</span></div>
                     </a>
-
-                    <a href="cotacao.html" class="action">
-                        <i class="fa-solid fa-box"></i>
-                        <div>
-                            <strong>Minha cotação</strong>
-                            <span>Minhas compras</span>
-                        </div>
+                    <a href="cotacao.html" class="action quote-action">
+                        <i class="fa-regular fa-clipboard" aria-hidden="true"></i>
+                        <div><strong>Minha cotação</strong><span>0 de 10 produtos</span></div>
                     </a>
-
-                    <a href="cotacao.html" class="action cart-action">
-                        <i class="fa-solid fa-basket-shopping"></i>
+                    <a href="cotacao.html" class="action cart-action" aria-label="Abrir minha cotação">
+                        <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="menu">
+    <nav class="menu" aria-label="Categorias de produtos">
         <div class="container">
             <ul>
                 <li class="menu-header">
-                    <a href="catalogo.html">
-                        <i class="fa-solid fa-bars"></i>
-                        <span>TODAS CATEGORIAS</span>
-                    </a>
+                    <a href="catalogo.html"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Todas as categorias</span></a>
                 </li>
-                <li><a href="audio.html">Áudio</a></li>
-                <li><a href="automotivo.html">Automotivo</a></li>
-                <li><a href="bebe-infantil.html">Bebê & Infantil</a></li>
-                <li><a href="beleza.html">Beleza & Cuidados</a></li>
-                <li><a href="camping.html">Camping & Aventura</a></li>
-                <li><a href="cozinha.html">Cozinha</a></li>
-                <li><a href="eletronicos.html">Eletrônicos</a></li>
-                <li><a href="intimidade.html">Intimidade & bem estar</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="quote-page">
+    <main class="quote-page">
         <div class="container">
-            <div class="category-header">
-                <h2>Minha Cotação</h2>
-                <p>Revise os produtos selecionados antes de enviar para o nosso atendimento.</p>
-            </div>
+            <header class="category-header quote-header">
+                <span class="section-eyebrow">Solicitação comercial</span>
+                <h1>Minha cotação</h1>
+                <p>Revise sua seleção e envie os produtos para receber as condições da nossa equipe.</p>
+            </header>
 
-            <div id="lista-cotacao" class="quote-list"></div>
+            <div class="quote-layout">
+                <div id="lista-cotacao" class="quote-list" aria-live="polite"></div>
 
-            <div class="quote-actions">
-                <a href="catalogo.html" class="btn-voltar-catalogo">Continuar cotando</a>
-                <button type="button" id="btn-enviar-whatsapp" class="btn-enviar-whatsapp">Enviar cotação pelo WhatsApp</button>
+                <aside class="quote-summary" aria-label="Resumo da cotação">
+                    <div class="quote-summary-heading">
+                        <span>Seleção atual</span>
+                        <strong><span data-quote-count>0</span> de <span data-quote-limit>10</span></strong>
+                    </div>
+                    <div class="quote-progress" aria-hidden="true">
+                        <span data-quote-progress></span>
+                    </div>
+                    <p>Você pode enviar até 10 produtos por cotação. Para trocar a seleção, remova um item e escolha outro.</p>
+
+                    <div class="quote-actions">
+                        <a href="catalogo.html" class="btn-voltar-catalogo">
+                            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                            Continuar escolhendo
+                        </a>
+                        <button type="button" id="btn-enviar-whatsapp" class="btn-enviar-whatsapp">
+                            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                            Enviar pelo WhatsApp
+                        </button>
+                    </div>
+                </aside>
             </div>
         </div>
-    </section>
+    </main>
 
     <script src="produtos.js"></script>
     <script src="script.js"></script>
