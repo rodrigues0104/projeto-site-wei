@@ -6,14 +6,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const categoriasMenu = [
         { nome: 'TODAS CATEGORIAS', href: 'catalogo.html', icone: 'fa-solid fa-bars', destaque: true },
-        { nome: 'Áudio', href: 'audio.html', categoria: 'audio' },
-        { nome: 'Automotivo', href: 'automotivo.html', categoria: 'automotivo' },
-        { nome: 'Bebê & Infantil', href: 'bebe-infantil.html', categoria: 'bebe-infantil' },
-        { nome: 'Beleza & Cuidados', href: 'beleza.html', categoria: 'beleza' },
-        { nome: 'Camping & Aventura', href: 'camping.html', categoria: 'camping' },
-        { nome: 'Cozinha', href: 'cozinha.html', categoria: 'cozinha' },
-        { nome: 'Eletrônicos', href: 'eletronicos.html', categoria: 'eletronicos' },
-        { nome: 'Intimidade & Bem estar', href: 'intimidade.html', categoria: 'intimidade' }
+        { nome: 'Áudio e Wearables', href: 'catalogo.html?categoria=audio', categoria: 'audio' },
+        { nome: 'Automotivo', href: 'catalogo.html?categoria=automotivo', categoria: 'automotivo' },
+        { nome: 'Bebê e Infantil', href: 'catalogo.html?categoria=bebe-infantil', categoria: 'bebe-infantil' },
+        { nome: 'Beleza e Cuidados Pessoais', href: 'catalogo.html?categoria=beleza', categoria: 'beleza' },
+        { nome: 'Camping e Aventura', href: 'catalogo.html?categoria=camping', categoria: 'camping' },
+        { nome: 'Casa e Cozinha', href: 'catalogo.html?categoria=cozinha', categoria: 'cozinha' },
+        { nome: 'Eletrônicos', href: 'catalogo.html?categoria=eletronicos', categoria: 'eletronicos' },
+        { nome: 'Eletroportáteis', href: 'catalogo.html?categoria=eletroportateis', categoria: 'eletroportateis' },
+        { nome: 'Ferramentas e Construção', href: 'catalogo.html?categoria=ferramentas', categoria: 'ferramentas' },
+        { nome: 'Fitness e Saúde', href: 'catalogo.html?categoria=fitness', categoria: 'fitness' },
+        { nome: 'Games e Consoles', href: 'catalogo.html?categoria=games', categoria: 'games' },
+        { nome: 'Informática e Acessórios', href: 'catalogo.html?categoria=informatica', categoria: 'informatica' },
+        { nome: 'Intimidade e Bem-Estar', href: 'catalogo.html?categoria=intimidade', categoria: 'intimidade' },
+        { nome: 'Pet Shop', href: 'catalogo.html?categoria=pet-shop', categoria: 'pet-shop' },
+        { nome: 'Utilidades Domésticas', href: 'catalogo.html?categoria=utilidades', categoria: 'utilidades' }
     ];
 
     const produtosCatalogoOriginais = Array.isArray(window.produtosCatalogo)
@@ -21,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
         : [];
     const produtosCatalogo = prepararProdutosCatalogo(produtosCatalogoOriginais);
     const CHAVE_COTACAO = 'weiProdutosCotacao';
+    const produtosPorId = new Map(produtosCatalogo.map(produto => [produto.idCotacao, produto]));
+    const produtosPorSku = new Map(produtosCatalogo.map(produto => [produto.sku, produto]));
 
     function prepararProdutosCatalogo(produtos) {
         const produtosUnicos = [];
@@ -42,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             chavesVistas.add(chaveProduto);
             produtosUnicos.push({
                 ...produto,
-                idCotacao: `${produto.sku || 'produto'}-${indice}`
+                idCotacao: produto.imagem || produto.sku || `produto-${indice}`
             });
         });
 
@@ -60,6 +69,31 @@ document.addEventListener("DOMContentLoaded", function() {
     function obterNomeCategoria(categoria) {
         const categoriaEncontrada = categoriasMenu.find(item => item.categoria === categoria);
         return categoriaEncontrada ? categoriaEncontrada.nome : categoria;
+    }
+
+    function obterCategoriaDaUrl() {
+        const parametros = new URLSearchParams(window.location.search);
+        return parametros.get('categoria') || '';
+    }
+
+    function atualizarCabecalhoCategoria(categoria) {
+        const categoriaEncontrada = categoriasMenu.find(item => item.categoria === categoria);
+        const cabecalho = document.querySelector('.category-header');
+
+        if (!categoriaEncontrada || !cabecalho) {
+            return;
+        }
+
+        const titulo = cabecalho.querySelector('h2');
+        const descricao = cabecalho.querySelector('p');
+
+        if (titulo) {
+            titulo.textContent = `Catálogo de ${categoriaEncontrada.nome}`;
+        }
+        if (descricao) {
+            descricao.textContent = 'Vendemos a partir de uma caixa, somente caixa fechada.';
+        }
+        document.title = `${categoriaEncontrada.nome} - Wei Import`;
     }
 
     function obterTermoBuscaDaUrl() {
@@ -84,8 +118,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function carregarCotacao() {
         try {
-            const produtos = JSON.parse(localStorage.getItem(CHAVE_COTACAO)) || [];
-            return Array.isArray(produtos) ? produtos : [];
+            const produtosSalvos = JSON.parse(localStorage.getItem(CHAVE_COTACAO)) || [];
+
+            if (!Array.isArray(produtosSalvos)) {
+                return [];
+            }
+
+            return produtosSalvos.flatMap(produtoSalvo => {
+                const produtoAtual = produtosPorId.get(String(produtoSalvo.idCotacao || ''))
+                    || produtosPorSku.get(String(produtoSalvo.sku || ''));
+
+                if (!produtoAtual) {
+                    return [];
+                }
+
+                return [{
+                    idCotacao: produtoAtual.idCotacao,
+                    sku: produtoAtual.sku,
+                    nome: produtoAtual.nome,
+                    caixa: produtoAtual.caixa,
+                    categoria: produtoAtual.categoria,
+                    imagem: produtoAtual.imagem
+                }];
+            });
         } catch (erro) {
             return [];
         }
@@ -255,12 +310,17 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        const categoriaAtual = vitrine.dataset.categoria || '';
+        const categoriaSolicitada = vitrine.dataset.categoria || obterCategoriaDaUrl();
+        const categoriaAtual = categoriasMenu.some(item => item.categoria === categoriaSolicitada)
+            ? categoriaSolicitada
+            : '';
         const produtosDaCategoria = categoriaAtual
             ? produtosCatalogo.filter(produto => produto.categoria === categoriaAtual)
             : produtosCatalogo;
         const campoBusca = document.querySelector('.search-box input');
         const termoInicial = campoBusca ? campoBusca.value : obterTermoBuscaDaUrl();
+
+        atualizarCabecalhoCategoria(categoriaAtual);
 
         renderizarVitrine(vitrine, produtosDaCategoria, termoInicial);
 
@@ -468,6 +528,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    salvarCotacao(carregarCotacao());
     configurarMenuCategorias();
     configurarMenuMobile();
     configurarWhatsappRotativo();

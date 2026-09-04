@@ -175,16 +175,18 @@ body {
 /* MENU DE NAVEGAÇÃO */
 .menu {
     background: #0f172a;
-    height: 70px;
+    min-height: 70px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .menu ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 35px;
-    height: 70px;
+    gap: 12px 24px;
+    min-height: 70px;
+    padding: 14px 0;
 }
 
 .menu-header {
@@ -1237,6 +1239,7 @@ img {
     }
 
     .menu ul {
+        flex-wrap: nowrap;
         height: auto;
         gap: 22px;
         overflow-x: auto;
