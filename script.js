@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const categoriasMenu = [
         { nome: 'Todas as categorias', href: 'catalogo.html', icone: 'fa-solid fa-bars', destaque: true },
-        { nome: 'Áudio e Wearables', href: 'catalogo.html?categoria=audio', categoria: 'audio' },
+        { nome: 'Áudio', href: 'catalogo.html?categoria=audio', categoria: 'audio' },
         { nome: 'Automotivo', href: 'catalogo.html?categoria=automotivo', categoria: 'automotivo' },
         { nome: 'Bebê e Infantil', href: 'catalogo.html?categoria=bebe-infantil', categoria: 'bebe-infantil' },
         { nome: 'Beleza e Cuidados Pessoais', href: 'catalogo.html?categoria=beleza', categoria: 'beleza' },

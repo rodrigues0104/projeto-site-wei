@@ -9,7 +9,7 @@ const raizInterno = process.argv[2]
     : resolve(raizOneDrive, "Documentos", "Site_interno_wei", "sistema-interno-wei");
 
 const categoriasPublicas = new Map([
-    ["Audio e Wearables", "audio"],
+    ["Audio", "audio"],
     ["Automotivo", "automotivo"],
     ["Bebe e Infantil", "bebe-infantil"],
     ["Beleza e Cuidados Pessoais", "beleza"],
