@@ -21,6 +21,7 @@ const nomesCorrigidos = new Map([
 
 // As imagens corrigidas ficam fora da pasta recriada pela importacao.
 const imagensCorrigidas = new Map([
+    ["101", "imagens/correcoes/caixa-som-101.png"],
     ["139", "imagens/correcoes/moedor-cafe-139.png"]
 ]);
 

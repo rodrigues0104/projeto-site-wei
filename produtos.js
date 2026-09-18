@@ -698,11 +698,11 @@ window.produtosCatalogo = [
         "nome": "Caixa de Som C/2 Microfones",
         "categoria": "audio",
         "caixa": "40 unid. por caixa",
-        "imagem": "imagens/produtos/produto-107.png"
+        "imagem": "imagens/correcoes/caixa-som-101.png"
     },
     {
         "sku": "102",
-        "nome": "Xxxx Caixinha de Som Charge 3",
+        "nome": "Caixinha de Som Charge 3",
         "categoria": "audio",
         "caixa": "28 unid. por caixa",
         "imagem": "imagens/produtos/produto-108.png"
@@ -1962,7 +1962,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "285",
-        "nome": "Gaurda Sol de Carro",
+        "nome": "Guarda Sol de Carro",
         "categoria": "automotivo",
         "caixa": "50 unid. por caixa",
         "imagem": "imagens/produtos/produto-301.png"
@@ -4048,7 +4048,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "589",
-        "nome": "Moedor de temperos",
+        "nome": "Galheteiro",
         "categoria": "cozinha",
         "caixa": "288 unid. por caixa",
         "imagem": "imagens/produtos/ud-155.png"
@@ -4412,7 +4412,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "641",
-        "nome": "Timer digital - cor unica",
+        "nome": "Amassador de alho",
         "categoria": "cozinha",
         "caixa": "144 unid. por caixa",
         "imagem": "imagens/produtos/ud-207.png"
@@ -4811,14 +4811,14 @@ window.produtosCatalogo = [
     },
     {
         "sku": "698",
-        "nome": "Conjunto para cha e cafe",
+        "nome": "Conjunto de caipirinha",
         "categoria": "cozinha",
         "caixa": "10 unid. por caixa",
         "imagem": "imagens/produtos/ud-264.png"
     },
     {
         "sku": "699",
-        "nome": "Copo com canudos - 750 ml",
+        "nome": "Coqueteleira",
         "categoria": "cozinha",
         "caixa": "100 unid. por caixa",
         "imagem": "imagens/produtos/ud-265.png"
@@ -5532,7 +5532,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "803",
-        "nome": "Balanca digital portatil",
+        "nome": "Triturador manual",
         "categoria": "cozinha",
         "caixa": "80 unid. por caixa",
         "imagem": "imagens/produtos/ud-411.png"
@@ -5581,14 +5581,14 @@ window.produtosCatalogo = [
     },
     {
         "sku": "810",
-        "nome": "Escova para secagem de cabelo",
+        "nome": "Modelador de cachos & chapinha 2 em 1",
         "categoria": "beleza",
         "caixa": "80 unid. por caixa",
         "imagem": "imagens/produtos/ud-425.png"
     },
     {
         "sku": "812",
-        "nome": "Prancha para cabelo",
+        "nome": "Modelador de cachos",
         "categoria": "beleza",
         "caixa": "60 unid. por caixa",
         "imagem": "imagens/produtos/ud-430.png"
