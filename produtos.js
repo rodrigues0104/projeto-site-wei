@@ -561,13 +561,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/produto-086.png"
     },
     {
-        "sku": "81",
-        "nome": "LED para Studio Fotografico",
-        "categoria": "informatica",
-        "caixa": "100 unid. por caixa",
-        "imagem": "imagens/produtos/produto-087.png"
-    },
-    {
         "sku": "82",
         "nome": "Power Bank A33 20000MAH",
         "categoria": "informatica",
@@ -799,13 +792,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/produto-122.png"
     },
     {
-        "sku": "115",
-        "nome": "Controle PS2",
-        "categoria": "games",
-        "caixa": "100 unid. por caixa",
-        "imagem": "imagens/produtos/produto-123.png"
-    },
-    {
         "sku": "116",
         "nome": "Controle PS3",
         "categoria": "games",
@@ -911,13 +897,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/produto-138.png"
     },
     {
-        "sku": "131",
-        "nome": "Estojo Console Portatil",
-        "categoria": "games",
-        "caixa": "450 unid. por caixa",
-        "imagem": "imagens/produtos/produto-139.png"
-    },
-    {
         "sku": "132",
         "nome": "Game Portatil X9",
         "categoria": "games",
@@ -971,7 +950,7 @@ window.produtosCatalogo = [
         "nome": "Moedor de Cafe",
         "categoria": "eletroportateis",
         "caixa": "36 unid. por caixa",
-        "imagem": "imagens/produtos/produto-147.png"
+        "imagem": "imagens/correcoes/moedor-cafe-139.png"
     },
     {
         "sku": "140",
@@ -1723,13 +1702,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/produto-261.png"
     },
     {
-        "sku": "247",
-        "nome": "Mini Barbeador",
-        "categoria": "beleza",
-        "caixa": "200 unid. por caixa",
-        "imagem": "imagens/produtos/produto-262.png"
-    },
-    {
         "sku": "248",
         "nome": "Aparador de Pelos Nariz",
         "categoria": "beleza",
@@ -2164,13 +2136,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/produto-326.png"
     },
     {
-        "sku": "310",
-        "nome": "Apoio p/Pes Ajustavel",
-        "categoria": "utilidades",
-        "caixa": "10 unid. por caixa",
-        "imagem": "imagens/produtos/produto-327.png"
-    },
-    {
         "sku": "311",
         "nome": "Aspirador Robo de Teclado",
         "categoria": "utilidades",
@@ -2197,13 +2162,6 @@ window.produtosCatalogo = [
         "categoria": "utilidades",
         "caixa": "18 unid. por caixa",
         "imagem": "imagens/produtos/produto-331.png"
-    },
-    {
-        "sku": "315",
-        "nome": "Capa Protetora de Roupa",
-        "categoria": "utilidades",
-        "caixa": "100 unid. por caixa",
-        "imagem": "imagens/produtos/produto-332.png"
     },
     {
         "sku": "316",
@@ -2295,13 +2253,6 @@ window.produtosCatalogo = [
         "categoria": "utilidades",
         "caixa": "100 unid. por caixa",
         "imagem": "imagens/produtos/produto-347.png"
-    },
-    {
-        "sku": "329",
-        "nome": "Kit Viagem C/5 Pecas",
-        "categoria": "utilidades",
-        "caixa": "40 unid. por caixa",
-        "imagem": "imagens/produtos/produto-348.png"
     },
     {
         "sku": "330",
@@ -2463,27 +2414,6 @@ window.produtosCatalogo = [
         "categoria": "bebe-infantil",
         "caixa": "100 unid. por caixa",
         "imagem": "imagens/produtos/produto-378.png"
-    },
-    {
-        "sku": "353",
-        "nome": "Caneta Ponta Fina 24 Cores",
-        "categoria": "bebe-infantil",
-        "caixa": "144 unid. por caixa",
-        "imagem": "imagens/produtos/produto-381.png"
-    },
-    {
-        "sku": "354",
-        "nome": "Caneta Ponta Fina 36 Cores",
-        "categoria": "bebe-infantil",
-        "caixa": "96 unid. por caixa",
-        "imagem": "imagens/produtos/produto-382.png"
-    },
-    {
-        "sku": "355",
-        "nome": "Caneta Ponta Fina 48 Cores",
-        "categoria": "bebe-infantil",
-        "caixa": "72 unid. por caixa",
-        "imagem": "imagens/produtos/produto-383.png"
     },
     {
         "sku": "356",
@@ -4657,7 +4587,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "666",
-        "nome": "Conjunto para temperos",
+        "nome": "cafeteiras turcas",
         "categoria": "cozinha",
         "caixa": "24 unid. por caixa",
         "imagem": "imagens/produtos/ud-232.png"
@@ -5349,13 +5279,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/ud-366.png"
     },
     {
-        "sku": "765",
-        "nome": "Lixeira automatica - 13 litros",
-        "categoria": "utilidades",
-        "caixa": "24 unid. por caixa",
-        "imagem": "imagens/produtos/ud-367.png"
-    },
-    {
         "sku": "766",
         "nome": "Lixeira automatica - 15 litros",
         "categoria": "utilidades",
@@ -5601,13 +5524,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/ud-407.png"
     },
     {
-        "sku": "801",
-        "nome": "Varal dobravel com 32 prendedores de plastico",
-        "categoria": "utilidades",
-        "caixa": "50 unid. por caixa",
-        "imagem": "imagens/produtos/ud-408.png"
-    },
-    {
         "sku": "802",
         "nome": "Almofada de pescoco",
         "categoria": "utilidades",
@@ -5637,7 +5553,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "806",
-        "nome": "Massageador portatil",
+        "nome": "irrigador bucal",
         "categoria": "fitness",
         "caixa": "50 unid. por caixa",
         "imagem": "imagens/produtos/ud-414.png"
@@ -5671,13 +5587,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/ud-425.png"
     },
     {
-        "sku": "811",
-        "nome": "Aparador de cabelo",
-        "categoria": "beleza",
-        "caixa": "200 unid. por caixa",
-        "imagem": "imagens/produtos/ud-426.png"
-    },
-    {
         "sku": "812",
         "nome": "Prancha para cabelo",
         "categoria": "beleza",
@@ -5697,48 +5606,6 @@ window.produtosCatalogo = [
         "categoria": "beleza",
         "caixa": "70 unid. por caixa",
         "imagem": "imagens/produtos/ud-432.png"
-    },
-    {
-        "sku": "815",
-        "nome": "Escova modeladora",
-        "categoria": "beleza",
-        "caixa": "50 unid. por caixa",
-        "imagem": "imagens/produtos/ud-433.png"
-    },
-    {
-        "sku": "816",
-        "nome": "Escova modeladora",
-        "categoria": "beleza",
-        "caixa": "50 unid. por caixa",
-        "imagem": "imagens/produtos/ud-434.png"
-    },
-    {
-        "sku": "817",
-        "nome": "Escova para cabelo",
-        "categoria": "beleza",
-        "caixa": "50 unid. por caixa",
-        "imagem": "imagens/produtos/ud-435.png"
-    },
-    {
-        "sku": "818",
-        "nome": "Escova para cabelo",
-        "categoria": "beleza",
-        "caixa": "50 unid. por caixa",
-        "imagem": "imagens/produtos/ud-436.png"
-    },
-    {
-        "sku": "819",
-        "nome": "Modelador com acessorios",
-        "categoria": "beleza",
-        "caixa": "40 unid. por caixa",
-        "imagem": "imagens/produtos/ud-437.png"
-    },
-    {
-        "sku": "820",
-        "nome": "Modelador com acessorios",
-        "categoria": "beleza",
-        "caixa": "40 unid. por caixa",
-        "imagem": "imagens/produtos/ud-438.png"
     },
     {
         "sku": "821",

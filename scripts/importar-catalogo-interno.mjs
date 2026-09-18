@@ -8,6 +8,22 @@ const raizInterno = process.argv[2]
     ? resolve(process.argv[2])
     : resolve(raizOneDrive, "Documentos", "Site_interno_wei", "sistema-interno-wei");
 
+// Produtos retirados do catalogo publico; mantenha os codigos dos demais itens.
+const skusExcluidos = new Set([
+    "81", "115", "131", "247", "310", "315", "329", "353", "354", "355",
+    "765", "801", "811", "815", "816", "817", "818", "819", "820"
+]);
+
+const nomesCorrigidos = new Map([
+    ["666", "cafeteiras turcas"],
+    ["806", "irrigador bucal"]
+]);
+
+// As imagens corrigidas ficam fora da pasta recriada pela importacao.
+const imagensCorrigidas = new Map([
+    ["139", "imagens/correcoes/moedor-cafe-139.png"]
+]);
+
 const categoriasPublicas = new Map([
     ["Audio", "audio"],
     ["Audio e Wearables", "audio"],
@@ -71,12 +87,16 @@ for (const [indice, produto] of catalogoInterno.entries()) {
     const nomeImagem = basename(origemImagem);
 
     skus.add(produto.sku);
+    if (skusExcluidos.has(produto.sku)) {
+        continue;
+    }
+
     produtosPublicos.push({
         sku: produto.sku,
-        nome: produto.nome,
+        nome: nomesCorrigidos.get(produto.sku) ?? produto.nome,
         categoria,
         caixa: `${produto.unidadesPorCaixa} unid. por caixa`,
-        imagem: `imagens/produtos/${nomeImagem}`
+        imagem: imagensCorrigidas.get(produto.sku) ?? `imagens/produtos/${nomeImagem}`
     });
 }
 
@@ -88,6 +108,10 @@ await rm(destinoImagens, { recursive: true, force: true });
 await mkdir(destinoImagens, { recursive: true });
 
 for (const produto of catalogoInterno) {
+    if (skusExcluidos.has(produto.sku) || imagensCorrigidas.has(produto.sku)) {
+        continue;
+    }
+
     const origemImagem = resolve(raizPublicaInterna, String(produto.imagem).replace(/^[/\\]+/, ""));
     const destinoImagem = resolve(destinoImagens, basename(origemImagem));
     await copyFile(origemImagem, destinoImagem);
