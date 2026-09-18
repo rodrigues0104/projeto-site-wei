@@ -10,6 +10,7 @@ const raizInterno = process.argv[2]
 
 const categoriasPublicas = new Map([
     ["Audio", "audio"],
+    ["Audio e Wearables", "audio"],
     ["Automotivo", "automotivo"],
     ["Bebe e Infantil", "bebe-infantil"],
     ["Beleza e Cuidados Pessoais", "beleza"],
