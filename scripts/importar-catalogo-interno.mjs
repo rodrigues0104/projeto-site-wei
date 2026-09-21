@@ -10,13 +10,20 @@ const raizInterno = process.argv[2]
 
 // Produtos retirados do catalogo publico; mantenha os codigos dos demais itens.
 const skusExcluidos = new Set([
+    "193", "194", "195", "196", "263", "307", "339", "608", "869", "871",
     "81", "115", "131", "247", "310", "315", "329", "353", "354", "355",
     "765", "801", "811", "815", "816", "817", "818", "819", "820"
 ]);
 
 const nomesCorrigidos = new Map([
+    ["33", "Extensão 4 tomadas"],
     ["666", "cafeteiras turcas"],
     ["806", "irrigador bucal"]
+]);
+
+const unidadesPorCaixaCorrigidas = new Map([
+    ["187", 50],
+    ["223", 200]
 ]);
 
 // As imagens corrigidas ficam fora da pasta recriada pela importacao.
@@ -96,7 +103,7 @@ for (const [indice, produto] of catalogoInterno.entries()) {
         sku: produto.sku,
         nome: nomesCorrigidos.get(produto.sku) ?? produto.nome,
         categoria,
-        caixa: `${produto.unidadesPorCaixa} unid. por caixa`,
+        caixa: `${unidadesPorCaixaCorrigidas.get(produto.sku) ?? produto.unidadesPorCaixa} unid. por caixa`,
         imagem: imagensCorrigidas.get(produto.sku) ?? `imagens/produtos/${nomeImagem}`
     });
 }

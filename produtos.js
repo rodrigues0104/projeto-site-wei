@@ -226,7 +226,7 @@ window.produtosCatalogo = [
     },
     {
         "sku": "33",
-        "nome": "Extensao 4 Tomadas e USB",
+        "nome": "Extensão 4 tomadas",
         "categoria": "eletronicos",
         "caixa": "60 unid. por caixa",
         "imagem": "imagens/produtos/produto-034.png"
@@ -1285,7 +1285,7 @@ window.produtosCatalogo = [
         "sku": "187",
         "nome": "Tabua de Corte de Titanio",
         "categoria": "cozinha",
-        "caixa": "25 unid. por caixa",
+        "caixa": "50 unid. por caixa",
         "imagem": "imagens/produtos/produto-199.png"
     },
     {
@@ -1322,34 +1322,6 @@ window.produtosCatalogo = [
         "categoria": "cozinha",
         "caixa": "18 unid. por caixa",
         "imagem": "imagens/produtos/produto-204.png"
-    },
-    {
-        "sku": "193",
-        "nome": "Conjunto 4 Potes Hermeticos Retangular de Plastico",
-        "categoria": "cozinha",
-        "caixa": "48 unid. por caixa",
-        "imagem": "imagens/produtos/produto-205.png"
-    },
-    {
-        "sku": "194",
-        "nome": "Conjunto 4 Potes Hermeticos Redondo de Plastico",
-        "categoria": "cozinha",
-        "caixa": "48 unid. por caixa",
-        "imagem": "imagens/produtos/produto-206.png"
-    },
-    {
-        "sku": "195",
-        "nome": "Conjunto 5 Potes Hermeticos Redondo de Plastico",
-        "categoria": "cozinha",
-        "caixa": "36 unid. por caixa",
-        "imagem": "imagens/produtos/produto-207.png"
-    },
-    {
-        "sku": "196",
-        "nome": "Conjunto 4 Potes Hermeticos Quadrado de Plastico",
-        "categoria": "cozinha",
-        "caixa": "48 unid. por caixa",
-        "imagem": "imagens/produtos/produto-208.png"
     },
     {
         "sku": "197",
@@ -1537,7 +1509,7 @@ window.produtosCatalogo = [
         "sku": "223",
         "nome": "Tornozeleira Esportiva",
         "categoria": "fitness",
-        "caixa": "40 unid. por caixa",
+        "caixa": "200 unid. por caixa",
         "imagem": "imagens/produtos/produto-235.png"
     },
     {
@@ -1805,13 +1777,6 @@ window.produtosCatalogo = [
         "categoria": "pet-shop",
         "caixa": "150 unid. por caixa",
         "imagem": "imagens/produtos/produto-277.png"
-    },
-    {
-        "sku": "263",
-        "nome": "Escova Pet",
-        "categoria": "pet-shop",
-        "caixa": "240 unid. por caixa",
-        "imagem": "imagens/produtos/produto-278.png"
     },
     {
         "sku": "264",
@@ -2115,13 +2080,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/produto-323.png"
     },
     {
-        "sku": "307",
-        "nome": "Lampada Ventilador",
-        "categoria": "utilidades",
-        "caixa": "30 unid. por caixa",
-        "imagem": "imagens/produtos/produto-324.png"
-    },
-    {
         "sku": "308",
         "nome": "Organizador de Roupas",
         "categoria": "utilidades",
@@ -2316,13 +2274,6 @@ window.produtosCatalogo = [
         "categoria": "bebe-infantil",
         "caixa": "48 unid. por caixa",
         "imagem": "imagens/produtos/produto-360.png"
-    },
-    {
-        "sku": "339",
-        "nome": "Xxx Kit Papinha Infantil 6 Pecas",
-        "categoria": "bebe-infantil",
-        "caixa": "40 unid. por caixa",
-        "imagem": "imagens/produtos/produto-361.png"
     },
     {
         "sku": "340",
@@ -4180,13 +4131,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/ud-173.png"
     },
     {
-        "sku": "608",
-        "nome": "Base para geladeiras e moveis",
-        "categoria": "cozinha",
-        "caixa": "24 unid. por caixa",
-        "imagem": "imagens/produtos/ud-174.png"
-    },
-    {
         "sku": "609",
         "nome": "Escorredor de loucas",
         "categoria": "cozinha",
@@ -5944,25 +5888,11 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/ud-489.png"
     },
     {
-        "sku": "869",
-        "nome": "Conjunto de mesas com cesto",
-        "categoria": "utilidades",
-        "caixa": "3 unid. por caixa",
-        "imagem": "imagens/produtos/ud-490.png"
-    },
-    {
         "sku": "870",
         "nome": "Conjunto de mesas com cesto",
         "categoria": "utilidades",
         "caixa": "3 unid. por caixa",
         "imagem": "imagens/produtos/ud-491.png"
-    },
-    {
-        "sku": "871",
-        "nome": "Conjunto de mesas com base dourada",
-        "categoria": "utilidades",
-        "caixa": "3 unid. por caixa",
-        "imagem": "imagens/produtos/ud-492.png"
     },
     {
         "sku": "872",
