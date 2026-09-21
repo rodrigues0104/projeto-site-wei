@@ -1315,6 +1315,11 @@ a {
     font-size: 12px;
 }
 
+/* Reserva espaco para o botao flutuante sem encobrir o credito. */
+.whatsapp ~ .site-footer .site-footer-bottom {
+    padding-right: 200px;
+}
+
 .site-footer-credit {
     display: inline-flex;
     align-items: center;
@@ -1844,6 +1849,10 @@ a {
         align-items: flex-start;
         flex-direction: column;
         padding-block: 22px;
+    }
+
+    .whatsapp ~ .site-footer .site-footer-bottom {
+        padding-right: 66px;
     }
 
     .whatsapp {
