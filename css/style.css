@@ -1246,28 +1246,35 @@ a {
 
 /* Footer */
 .site-footer {
+    border-top: 2px solid var(--gold);
     background: #081a2e;
     color: #ffffff;
 }
 
 .site-footer-main {
-    min-height: 150px;
+    min-height: 180px;
     display: grid;
-    grid-template-columns: 190px minmax(240px, 1fr) auto;
+    grid-template-columns: 172px minmax(240px, 1fr) auto;
     align-items: center;
     gap: 40px;
+    padding-block: 32px;
 }
 
 .site-footer-brand {
+    width: 172px;
+    max-width: 100%;
+    padding: 12px 18px;
+    border: 1px solid rgba(198, 168, 77, 0.3);
+    border-radius: 10px;
     display: block;
+    background: #ffffff;
 }
 
 .site-footer-brand img {
-    width: 145px;
-    height: 62px;
-    object-fit: cover;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
     object-position: center;
-    filter: grayscale(1) brightness(0) invert(1);
 }
 
 .site-footer-main > p {
@@ -1296,12 +1303,51 @@ a {
 }
 
 .site-footer-bottom {
-    min-height: 52px;
+    min-height: 80px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    color: #8292a1;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    padding-block: 18px;
+    color: #aebbc7;
     font-size: 12px;
+}
+
+.site-footer-credit {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.site-footer-credit-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 1px solid rgba(198, 168, 77, 0.3);
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    background: rgba(198, 168, 77, 0.08);
+    color: #e5cc7e;
+    font-size: 14px;
+}
+
+.site-footer-credit-copy {
+    display: grid;
+    gap: 2px;
+    line-height: 1.4;
+}
+
+.site-footer-credit-copy > span {
+    font-size: 11px;
+}
+
+.site-footer-credit-copy strong {
+    color: #e5cc7e;
+    font-size: 14px;
+    font-weight: 650;
 }
 
 /* Feedback */
@@ -1792,6 +1838,12 @@ a {
         grid-column: auto;
         flex-wrap: wrap;
         gap: 16px 24px;
+    }
+
+    .site-footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-block: 22px;
     }
 
     .whatsapp {

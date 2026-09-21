@@ -736,7 +736,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rodape.className = 'site-footer';
         rodape.innerHTML = `
             <div class="container site-footer-main">
-                <a href="index.html" class="site-footer-brand" aria-label="Página inicial da Wei Import"><img src="imagens/1.png" alt="Wei Import"></a>
+                <a href="index.html" class="site-footer-brand" aria-label="Página inicial da Wei Import"><img src="imagens/transparente250.png" alt="Wei Import" width="250" height="180" loading="lazy"></a>
                 <p>Importados no atacado, com estoque no Brasil e atendimento próximo.</p>
                 <nav class="site-footer-links" aria-label="Links do rodapé">
                     <a href="catalogo.html">Catálogo</a>
@@ -744,7 +744,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     <a href="#" class="btn-whatsapp-rotativo">Atendimento</a>
                 </nav>
             </div>
-            <div class="container site-footer-bottom">© ${new Date().getFullYear()} Wei Import. Todos os direitos reservados.</div>
+            <div class="container site-footer-bottom">
+                <p>© ${new Date().getFullYear()} Wei Import. Todos os direitos reservados.</p>
+                <p class="site-footer-credit">
+                    <span class="site-footer-credit-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></span>
+                    <span class="site-footer-credit-copy">
+                        <span>Desenvolvido por</span>
+                        <strong>Igor Rodrigues</strong>
+                    </span>
+                </p>
+            </div>
         `;
         document.body.appendChild(rodape);
     }
