@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function prepararProdutosCatalogo(produtos) {
         const produtosUnicos = [];
         const chavesVistas = new Set();
+        const idsUsados = new Set();
 
         produtos.forEach((produto, indice) => {
             const chaveProduto = [
@@ -51,9 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             chavesVistas.add(chaveProduto);
+
+            // Produtos que compartilham a mesma imagem (ex.: variacoes de tamanho)
+            // recebem o SKU no identificador para nao colidirem na cotacao.
+            let idCotacao = String(produto.imagem || produto.sku || `produto-${indice}`);
+            if (idsUsados.has(idCotacao)) {
+                idCotacao = `${idCotacao}#${produto.sku || indice}`;
+            }
+            idsUsados.add(idCotacao);
+
             produtosUnicos.push({
                 ...produto,
-                idCotacao: String(produto.imagem || produto.sku || `produto-${indice}`)
+                idCotacao
             });
         });
 

@@ -1808,11 +1808,19 @@ window.produtosCatalogo = [
     },
     {
         "sku": "268",
-        "nome": "Guia Retratil 3M/5M",
+        "nome": "Guia Retratil 3M",
         "categoria": "pet-shop",
         "caixa": "100 unid. por caixa",
         "imagem": "imagens/produtos/produto-283.png"
     },
+    {
+        "sku": "883",
+        "nome": "Guia Retratil 5M",
+        "categoria": "pet-shop",
+        "caixa": "100 unid. por caixa",
+        "imagem": "imagens/produtos/produto-283.png"
+    },
+    
     {
         "sku": "269",
         "nome": "Mordedor Pet",
@@ -1978,7 +1986,7 @@ window.produtosCatalogo = [
         "sku": "292",
         "nome": "Compressor de Ar e Auxiliar de Partida",
         "categoria": "automotivo",
-        "caixa": "40 unid. por caixa",
+        "caixa": "48 unid. por caixa",
         "imagem": "imagens/produtos/produto-309.png"
     },
     {
@@ -2099,13 +2107,6 @@ window.produtosCatalogo = [
         "categoria": "utilidades",
         "caixa": "72 unid. por caixa",
         "imagem": "imagens/produtos/produto-328.png"
-    },
-    {
-        "sku": "312",
-        "nome": "Suporte de Geladeira",
-        "categoria": "utilidades",
-        "caixa": "24 unid. por caixa",
-        "imagem": "imagens/produtos/produto-329.png"
     },
     {
         "sku": "313",
@@ -2501,7 +2502,14 @@ window.produtosCatalogo = [
     },
     {
         "sku": "375",
-        "nome": "Trena de Aco 5M/7,5M",
+        "nome": "Trena de Aco 7,5M",
+        "categoria": "ferramentas",
+        "caixa": "1 unid. por caixa",
+        "imagem": "imagens/produtos/produto-403.png"
+    },
+    {
+        "sku": "882",
+        "nome": "Trena de Aco 5M",
         "categoria": "ferramentas",
         "caixa": "1 unid. por caixa",
         "imagem": "imagens/produtos/produto-403.png"
@@ -5895,13 +5903,6 @@ window.produtosCatalogo = [
         "imagem": "imagens/produtos/ud-491.png"
     },
     {
-        "sku": "872",
-        "nome": "Conjunto de mesas com base dourada",
-        "categoria": "utilidades",
-        "caixa": "3 unid. por caixa",
-        "imagem": "imagens/produtos/ud-493.png"
-    },
-    {
         "sku": "873",
         "nome": "Poltrona com estampas",
         "categoria": "utilidades",
@@ -5963,5 +5964,12 @@ window.produtosCatalogo = [
         "categoria": "utilidades",
         "caixa": "1 unid. por caixa",
         "imagem": "imagens/produtos/ud-502.png"
+    },
+    {
+        "sku": "884",
+        "nome": "Pulverizador Eletrico",
+        "categoria": "utilidades",
+        "caixa": "100 unid. por caixa",
+        "imagem": "imagens/produtos/pulverizador-eletrico.webp"
     }
 ];
