@@ -5971,5 +5971,12 @@ window.produtosCatalogo = [
         "categoria": "utilidades",
         "caixa": "100 unid. por caixa",
         "imagem": "imagens/produtos/pulverizador-eletrico.webp"
+    },
+    {
+        "sku": "885",
+        "nome": "Auxiliar de Partida e Compressor de Ar Digital",
+        "categoria": "automotivo",
+        "caixa": "48 unid. por caixa",
+        "imagem": "imagens/produtos/auxiliar-partida-compressor.png"
     }
 ];
